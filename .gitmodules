@@ -4,9 +4,9 @@
 [submodule "api-gateway"]
 	path = api-gateway
 	url = https://github.com/TekClinic/API-Gateway.git
-[submodule "auth"]
-	path = auth
-	url = https://github.com/TekClinic/Auth-MicroService
 [submodule "patients"]
 	path = patients
-	url = https://github.com/TekClinic/Patients-MicroService
+	url = https://github.com/TekClinic/Patients-MicroService.git
+[submodule "appointments"]
+	path = appointments
+	url = https://github.com/TekClinic/Appointments-MicroService.git

@@ -44,8 +44,8 @@ ALTER ROLE root WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYP
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
--- Dumped by pg_dump version 16.1 (Debian 16.1-1.pgdg120+1)
+-- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -70,8 +70,8 @@ SET row_security = off;
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
--- Dumped by pg_dump version 16.1 (Debian 16.1-1.pgdg120+1)
+-- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2292,6 +2292,7 @@ cceda277-92c7-413d-9b87-f804c6ca6e70	cded9dd3-7c95-4bd7-b74d-9aafa434543b
 
 COPY public.credential (id, salt, type, user_id, created_date, user_label, secret_data, credential_data, priority) FROM stdin;
 5daa2d85-4c7a-4185-becd-512142adc119	\N	password	5f716f5b-6c06-41b9-8722-6b4e4b9f2e78	1707755733794	\N	{"value":"F3xxYZd0VqbZNUnRHLqRCv3AMTd8D8jpVq7UuSMUpZ8=","salt":"l9Q60asvzK9AB8UTV+szMw==","additionalParameters":{}}	{"hashIterations":27500,"algorithm":"pbkdf2-sha256","additionalParameters":{}}	10
+a7f84cd0-36bb-497b-a833-3e408456df1e	\N	password	e6badb8c-23ef-46e7-b9ac-d7826f18aeef	1711114736612	My password	{"value":"VMH+kl6euO41xd3Toh8/MLtaXP4s6x9yW2Xz+TgAZfk=","salt":"DrhTtTAIvRZ7HOoAyO57xg==","additionalParameters":{}}	{"hashIterations":27500,"algorithm":"pbkdf2-sha256","additionalParameters":{}}	10
 \.
 
 
@@ -2682,6 +2683,7 @@ cb73a38e-143d-47c0-82d2-03c5dbc9f347	35f91e48-5547-4615-b233-5753a6a66334	t	${ro
 cceda277-92c7-413d-9b87-f804c6ca6e70	35f91e48-5547-4615-b233-5753a6a66334	t	${role_manage-consent}	manage-consent	9221edbb-59a4-49c1-a953-17a986e6ecd2	35f91e48-5547-4615-b233-5753a6a66334	\N
 cd42766e-6606-401b-b777-29577067222c	35f91e48-5547-4615-b233-5753a6a66334	t	${role_view-profile}	view-profile	9221edbb-59a4-49c1-a953-17a986e6ecd2	35f91e48-5547-4615-b233-5753a6a66334	\N
 aaa6942c-e092-48ce-9c9d-4784d5415f7e	c6afb667-13cc-49d1-b19b-1f6ba5f13e1b	t	${role_impersonation}	impersonation	319844d6-c993-472b-b6db-ed5f70b1d9fa	c6afb667-13cc-49d1-b19b-1f6ba5f13e1b	\N
+a90ff6de-1cba-4e54-8241-fb1a63fe6101	9221edbb-59a4-49c1-a953-17a986e6ecd2	f	Can access any resource in the clinic.	admin	9221edbb-59a4-49c1-a953-17a986e6ecd2	\N	\N
 \.
 
 
@@ -2691,6 +2693,7 @@ aaa6942c-e092-48ce-9c9d-4784d5415f7e	c6afb667-13cc-49d1-b19b-1f6ba5f13e1b	t	${ro
 
 COPY public.migration_model (id, version, update_time) FROM stdin;
 hcw28	23.0.6	1707755722
+8q66b	23.0.7	1711113895
 \.
 
 
@@ -3333,8 +3336,8 @@ a6fa7888-d7d4-4839-bf0f-624e7fa91276	/realms/master/account/*
 35f91e48-5547-4615-b233-5753a6a66334	/realms/tekclinic/account/*
 d7963a92-c19a-4ca7-a646-90f9cadd92d9	/realms/tekclinic/account/*
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	/admin/tekclinic/console/*
-984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org/*
 291174d2-2dd5-486e-afd5-25223d4acded	
+984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org*
 \.
 
 
@@ -3508,6 +3511,7 @@ COPY public.user_consent_client_scope (user_consent_id, scope_id) FROM stdin;
 COPY public.user_entity (id, email, email_constraint, email_verified, enabled, federation_link, first_name, last_name, realm_id, username, created_timestamp, service_account_client_link, not_before) FROM stdin;
 5f716f5b-6c06-41b9-8722-6b4e4b9f2e78	\N	eddfbd19-f37c-4baa-9f2d-ff22c8860cab	f	t	\N	\N	\N	319844d6-c993-472b-b6db-ed5f70b1d9fa	admin	1707755733518	\N	0
 d39a75a9-517b-48ae-a79a-b8d4420c170e	\N	a5a3e25a-1840-46c7-8e27-e8705398a0c3	f	t	\N	\N	\N	9221edbb-59a4-49c1-a953-17a986e6ecd2	service-account-backend-client	1707771862461	291174d2-2dd5-486e-afd5-25223d4acded	0
+e6badb8c-23ef-46e7-b9ac-d7826f18aeef	\N	f8df0e97-6224-4346-892d-6b15e154f71f	t	t	\N	\N	\N	9221edbb-59a4-49c1-a953-17a986e6ecd2	test_user	1711114720599	\N	0
 \.
 
 
@@ -3568,6 +3572,9 @@ COPY public.user_role_mapping (role_id, user_id) FROM stdin;
 4ae97f09-282f-4c97-af74-655bbbf587be	5f716f5b-6c06-41b9-8722-6b4e4b9f2e78
 bd6f2982-6db9-426e-9234-3c15867d9215	d39a75a9-517b-48ae-a79a-b8d4420c170e
 ea2163e5-97ad-4880-85c6-7a494bdae39b	d39a75a9-517b-48ae-a79a-b8d4420c170e
+a90ff6de-1cba-4e54-8241-fb1a63fe6101	d39a75a9-517b-48ae-a79a-b8d4420c170e
+bd6f2982-6db9-426e-9234-3c15867d9215	e6badb8c-23ef-46e7-b9ac-d7826f18aeef
+a90ff6de-1cba-4e54-8241-fb1a63fe6101	e6badb8c-23ef-46e7-b9ac-d7826f18aeef
 \.
 
 
@@ -3602,8 +3609,8 @@ COPY public.username_login_failure (realm_id, username, failed_login_not_before,
 COPY public.web_origins (client_id, value) FROM stdin;
 141e4dad-404a-4615-b772-9adb633ad401	+
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	+
-984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org
 291174d2-2dd5-486e-afd5-25223d4acded	
+984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org
 \.
 
 
@@ -5632,8 +5639,8 @@ ALTER TABLE ONLY public.identity_provider_config
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
--- Dumped by pg_dump version 16.1 (Debian 16.1-1.pgdg120+1)
+-- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -5673,24 +5680,137 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: emergency_contacts; Type: TABLE; Schema: public; Owner: patients
+--
+
+CREATE TABLE public.emergency_contacts (
+    id integer NOT NULL,
+    name character varying,
+    closeness character varying,
+    phone character varying,
+    patient_id integer
+);
+
+
+ALTER TABLE public.emergency_contacts OWNER TO patients;
+
+--
+-- Name: emergency_contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: patients
+--
+
+CREATE SEQUENCE public.emergency_contacts_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.emergency_contacts_id_seq OWNER TO patients;
+
+--
+-- Name: emergency_contacts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: patients
+--
+
+ALTER SEQUENCE public.emergency_contacts_id_seq OWNED BY public.emergency_contacts.id;
+
+
+--
 -- Name: patients; Type: TABLE; Schema: public; Owner: patients
 --
 
 CREATE TABLE public.patients (
-    user_id uuid NOT NULL,
-    name character varying
+    id integer NOT NULL,
+    active boolean,
+    name character varying,
+    personal_id_id character varying,
+    personal_id_type character varying,
+    gender integer,
+    phone_number character varying,
+    languages character varying[],
+    birth_date timestamp with time zone,
+    referred_by character varying,
+    special_note character varying
 );
 
 
 ALTER TABLE public.patients OWNER TO patients;
 
 --
+-- Name: patients_id_seq; Type: SEQUENCE; Schema: public; Owner: patients
+--
+
+CREATE SEQUENCE public.patients_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.patients_id_seq OWNER TO patients;
+
+--
+-- Name: patients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: patients
+--
+
+ALTER SEQUENCE public.patients_id_seq OWNED BY public.patients.id;
+
+
+--
+-- Name: emergency_contacts id; Type: DEFAULT; Schema: public; Owner: patients
+--
+
+ALTER TABLE ONLY public.emergency_contacts ALTER COLUMN id SET DEFAULT nextval('public.emergency_contacts_id_seq'::regclass);
+
+
+--
+-- Name: patients id; Type: DEFAULT; Schema: public; Owner: patients
+--
+
+ALTER TABLE ONLY public.patients ALTER COLUMN id SET DEFAULT nextval('public.patients_id_seq'::regclass);
+
+
+--
+-- Data for Name: emergency_contacts; Type: TABLE DATA; Schema: public; Owner: patients
+--
+
+COPY public.emergency_contacts (id, name, closeness, phone, patient_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: patients; Type: TABLE DATA; Schema: public; Owner: patients
 --
 
-COPY public.patients (user_id, name) FROM stdin;
-d39a75a9-517b-48ae-a79a-b8d4420c170e	Backend Client
+COPY public.patients (id, active, name, personal_id_id, personal_id_type, gender, phone_number, languages, birth_date, referred_by, special_note) FROM stdin;
+1	t	John Smith	21472148	ID	1	+93782374732	{chinese,hebrew}	2000-10-10 00:00:00+00	\N	\N
+2	f	Miranda Grand	74832741	Passport	2	+18218347219	{english}	1988-10-11 00:00:00+00	John Smith	\N
 \.
+
+
+--
+-- Name: emergency_contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: patients
+--
+
+SELECT pg_catalog.setval('public.emergency_contacts_id_seq', 1, false);
+
+
+--
+-- Name: patients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: patients
+--
+
+SELECT pg_catalog.setval('public.patients_id_seq', 2, true);
+
+
+--
+-- Name: emergency_contacts emergency_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: patients
+--
+
+ALTER TABLE ONLY public.emergency_contacts
+    ADD CONSTRAINT emergency_contacts_pkey PRIMARY KEY (id);
 
 
 --
@@ -5698,7 +5818,7 @@ d39a75a9-517b-48ae-a79a-b8d4420c170e	Backend Client
 --
 
 ALTER TABLE ONLY public.patients
-    ADD CONSTRAINT patients_pkey PRIMARY KEY (user_id);
+    ADD CONSTRAINT patients_pkey PRIMARY KEY (id);
 
 
 --
@@ -5715,8 +5835,8 @@ ALTER TABLE ONLY public.patients
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.1 (Debian 16.1-1.pgdg120+1)
--- Dumped by pg_dump version 16.1 (Debian 16.1-1.pgdg120+1)
+-- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;

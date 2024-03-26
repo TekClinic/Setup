@@ -1,57 +1,5 @@
 version: '3.8'
 services:
-  keycloak:
-    image: keycloak/keycloak:23.0
-    command: start-dev
-    networks:
-      - front-tier
-      - back-tier
-    environment:
-      - KC_DB=postgres
-      - KC_DB_URL_DATABASE=keycloak
-      - KC_DB_URL_HOST=db
-      - KC_DB_URL_PORT=5432
-      - KC_DB_USER=keycloak
-      - KC_DB_PASSWORD=keycloak
-      - KC_HOSTNAME=auth.tekclinic.org
-      - KC_HOSTNAME_PORT=80
-    depends_on:
-      db:
-        condition: service_healthy
-  web-app:
-    build: web-app
-    networks:
-      - front-tier
-  auth:
-    build: auth
-    networks:
-      - back-tier
-    environment:
-      - KC_CLIENT_ID=backend-client
-      - KC_CLIENT_SECRET=bwMzihSCl9KMb9vykf4SPMNMmzX97Kpa
-      - KC_REALM=tekclinic
-      - KC_URL=http://keycloak:8080
-  patients:
-    build: patients
-    networks:
-      - back-tier
-    environment:
-      - MS_AUTH_HOST=auth
-      - MS_AUTH_PORT=9090
-      - DB_ADDR=db:5432
-      - DB_USER=patients
-      - DB_PASSWORD=patients
-      - DB_DATABASE=patients
-    depends_on:
-      db:
-        condition: service_healthy
-  api-gateway:
-    build: api-gateway
-    networks:
-      - front-tier
-      - back-tier
-    environment:
-      - MS_PATIENTS_HOST=patients
   db:
     image: postgres:latest
     ports:
@@ -64,9 +12,83 @@ services:
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready" ]
-      interval: 1s
+      test: [ "CMD-SHELL", "pg_isready -U root" ]
+      interval: 5s
       retries: 20
+
+  keycloak:
+    image: keycloak/keycloak:23.0
+    command: start-dev
+    networks:
+      front-tier: {}
+      back-tier:
+        aliases:
+          - auth.tekclinic.org
+    environment:
+      - KC_DB=postgres
+      - KC_DB_URL_DATABASE=keycloak
+      - KC_DB_URL_HOST=db
+      - KC_DB_URL_PORT=5432
+      - KC_DB_USER=keycloak
+      - KC_DB_PASSWORD=keycloak
+      - KC_HOSTNAME=auth.tekclinic.org
+      - KC_HOSTNAME_PORT=80
+      - KC_HTTP_PORT=80
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web-app:
+    build: web-app
+    networks:
+      - front-tier
+
+  patients:
+    build: patients
+    networks:
+      - back-tier
+    ports:
+      - "9090:9090"
+    environment:
+      - AUTH_ISSUER=http://auth.tekclinic.org:80/realms/tekclinic
+      - DB_ADDR=db:5432
+      - DB_USER=patients
+      - DB_PASSWORD=patients
+      - DB_DATABASE=patients
+      - BUN_DEBUG=2
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
+  appointments:
+    build: appointments
+    networks:
+      - back-tier
+    ports:
+      - "9090:9090"
+    environment:
+      - AUTH_ISSUER=http://auth.tekclinic.org:80/realms/tekclinic
+      - DB_ADDR=db:5432
+      - DB_USER=appointments
+      - DB_PASSWORD=appointments
+      - DB_DATABASE=appointments
+      - BUN_DEBUG=2
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+
+  api-gateway:
+    build: api-gateway
+    networks:
+      - front-tier
+      - back-tier
+    environment:
+      - MS_PATIENT_HOST=patients
+      - URI_SCHEME=http
+      - URI_HOST=api.tekclinic.org
+
   nginx:
     image: nginx:latest
     ports:
@@ -79,6 +101,7 @@ services:
       - web-app
       - api-gateway
       - keycloak
+
 networks:
   front-tier: {}
   back-tier: {}
