@@ -60,6 +60,8 @@ services:
       - DB_DATABASE=patients
       - BUN_DEBUG=2
     depends_on:
+      keycloak:
+        condition: service_started
       db:
         condition: service_healthy
     restart: on-failure
@@ -78,6 +80,8 @@ services:
       - DB_DATABASE=appointments
       - BUN_DEBUG=2
     depends_on:
+      keycloak:
+        condition: service_started
       db:
         condition: service_healthy
     restart: on-failure
