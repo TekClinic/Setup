@@ -10,3 +10,6 @@
 [submodule "appointments"]
 	path = appointments
 	url = https://github.com/TekClinic/Appointments-MicroService.git
+[submodule "doctors"]
+	path = doctors
+	url = https://github.com/TekClinic/PHR_Doctors_MicroService.git

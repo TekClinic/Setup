@@ -86,6 +86,26 @@ services:
         condition: service_healthy
     restart: on-failure
 
+  doctors:
+    build: doctors
+    networks:
+      - back-tier
+    ports:
+      - "9092:9090"
+    environment:
+      - AUTH_ISSUER=http://auth.tekclinic.org:80/realms/tekclinic
+      - DB_ADDR=db:5432
+      - DB_USER=doctors
+      - DB_PASSWORD=doctors
+      - DB_DATABASE=doctors
+      - BUN_DEBUG=2
+    depends_on:
+      keycloak:
+        condition: service_started
+      db:
+        condition: service_healthy
+    restart: on-failure
+
   api-gateway:
     build: api-gateway
     networks:

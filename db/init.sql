@@ -13,6 +13,8 @@ SET standard_conforming_strings = on;
 
 CREATE ROLE appointments;
 ALTER ROLE appointments WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:q5asb43mP559/MPEk3pP7A==$vvQCEuVfKvhn10qr08MkNH6STKHZn97KtpqWtZAb7LE=:NcOb6KnhxDTuoiRRPNTgus7p/6iE0Pe8XibEBdBSMt0=';
+CREATE ROLE doctors;
+ALTER ROLE doctors WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:lubL25OzTaAzBvkQ/UgeKw==$enJatItBg4d7D+Fjqp2QcCHNoylbpw2tG9hP0qMN15U=:eQp92gQ4Mt6biBb89+J5BCdhcsfx8y/EtqbWweuDsSg=';
 CREATE ROLE keycloak;
 ALTER ROLE keycloak WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION NOBYPASSRLS PASSWORD 'SCRAM-SHA-256$4096:K9oW7tI+l6qYtkyGEipf8w==$BilkPnNuuZwVXDchETfrNE2R0HnNM6zEQ5TvKJEEk4Q=:k5/92jyKxNHm13p7Oj4KYo1U2rJ1oyIsCkiydG9U6Us=';
 COMMENT ON ROLE keycloak IS 'Keycloak user for accessing its database';
@@ -178,6 +180,129 @@ SELECT pg_catalog.setval('public.appointments_id_seq', 1, false);
 
 ALTER TABLE ONLY public.appointments
     ADD CONSTRAINT appointments_pkey PRIMARY KEY (id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- Database "doctors" dump
+--
+
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: doctors; Type: DATABASE; Schema: -; Owner: doctors
+--
+
+CREATE DATABASE doctors WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.utf8';
+
+
+ALTER DATABASE doctors OWNER TO doctors;
+
+\connect doctors
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: doctors; Type: TABLE; Schema: public; Owner: doctors
+--
+
+CREATE TABLE public.doctors (
+    id integer NOT NULL,
+    active boolean,
+    name character varying,
+    gender integer,
+    phone_number character varying,
+    specialities character varying[],
+    special_note character varying
+);
+
+
+ALTER TABLE public.doctors OWNER TO doctors;
+
+--
+-- Name: doctors_id_seq; Type: SEQUENCE; Schema: public; Owner: doctors
+--
+
+CREATE SEQUENCE public.doctors_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.doctors_id_seq OWNER TO doctors;
+
+--
+-- Name: doctors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: doctors
+--
+
+ALTER SEQUENCE public.doctors_id_seq OWNED BY public.doctors.id;
+
+
+--
+-- Name: doctors id; Type: DEFAULT; Schema: public; Owner: doctors
+--
+
+ALTER TABLE ONLY public.doctors ALTER COLUMN id SET DEFAULT nextval('public.doctors_id_seq'::regclass);
+
+
+--
+-- Data for Name: doctors; Type: TABLE DATA; Schema: public; Owner: doctors
+--
+
+COPY public.doctors (id, active, name, gender, phone_number, specialities, special_note) FROM stdin;
+1	\N	Asaf Lotz	1	+972569699696	{GASTRONOMY}	\N
+2	\N	Amit Romen	2	+972502052052	{STDM}	\N
+\.
+
+
+--
+-- Name: doctors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: doctors
+--
+
+SELECT pg_catalog.setval('public.doctors_id_seq', 2, true);
+
+
+--
+-- Name: doctors doctors_pkey; Type: CONSTRAINT; Schema: public; Owner: doctors
+--
+
+ALTER TABLE ONLY public.doctors
+    ADD CONSTRAINT doctors_pkey PRIMARY KEY (id);
 
 
 --
