@@ -3585,6 +3585,7 @@ d7963a92-c19a-4ca7-a646-90f9cadd92d9	/realms/tekclinic/account/*
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	/admin/tekclinic/console/*
 291174d2-2dd5-486e-afd5-25223d4acded	
 984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org*
+984ede3f-e7f6-4231-9bfa-68a726c655a5	http://localhost*
 \.
 
 
@@ -3858,6 +3859,7 @@ COPY public.web_origins (client_id, value) FROM stdin;
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	+
 291174d2-2dd5-486e-afd5-25223d4acded	
 984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org
+984ede3f-e7f6-4231-9bfa-68a726c655a5	http://localhost:3000
 \.
 
 
