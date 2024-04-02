@@ -39,10 +39,7 @@ services:
         condition: service_healthy
 
   web-app:
-    # build: web-app
-    # TODO: Uncomment the above line and remove the below two lines to restore the web-app service
-    image: golang:1.22-alpine
-    command: sleep infinity
+    build: web-app
     networks:
       - front-tier
 
@@ -113,6 +110,8 @@ services:
       - back-tier
     environment:
       - MS_PATIENT_HOST=patients
+      - MS_APPOINTMENT_HOST=appointments
+      - MS_DOCTOR_HOST=doctors
       - URI_SCHEME=http
       - URI_HOST=api.tekclinic.org
 
