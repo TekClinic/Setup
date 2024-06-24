@@ -39,12 +39,21 @@ services:
         condition: service_healthy
 
   web-app:
-    build: web-app
+    build: 
+      context: web-app
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_AUTH_URL: ${NEXT_PUBLIC_AUTH_URL}
+        NEXT_PUBLIC_SYNCFUSION_LICENSE_KEY: ${NEXT_PUBLIC_SYNCFUSION_LICENSE_KEY}
     networks:
       - front-tier
 
   patients:
-    build: patients
+    build: 
+      context: patients
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        GITHUB_ACTOR: ${GITHUB_ACTOR}
     networks:
       - back-tier
     ports:
@@ -64,7 +73,11 @@ services:
     restart: on-failure
 
   appointments:
-    build: appointments
+    build: 
+      context: appointments
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        GITHUB_ACTOR: ${GITHUB_ACTOR}
     networks:
       - back-tier
     ports:
@@ -84,7 +97,11 @@ services:
     restart: on-failure
 
   doctors:
-    build: doctors
+    build: 
+      context: doctors
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        GITHUB_ACTOR: ${GITHUB_ACTOR}
     networks:
       - back-tier
     ports:
@@ -104,7 +121,11 @@ services:
     restart: on-failure
 
   api-gateway:
-    build: api-gateway
+    build: 
+      context: api-gateway
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
+        GITHUB_ACTOR: ${GITHUB_ACTOR}
     networks:
       - front-tier
       - back-tier
