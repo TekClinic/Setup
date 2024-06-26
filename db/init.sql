@@ -48,8 +48,8 @@ ALTER ROLE root WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION BYP
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
--- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped from database version 16.3 (Debian 16.3-1.pgdg120+1)
+-- Dumped by pg_dump version 16.3 (Debian 16.3-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -74,8 +74,8 @@ SET row_security = off;
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
--- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped from database version 16.3 (Debian 16.3-1.pgdg120+1)
+-- Dumped by pg_dump version 16.3 (Debian 16.3-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -164,6 +164,7 @@ ALTER TABLE ONLY public.appointments ALTER COLUMN id SET DEFAULT nextval('public
 --
 
 COPY public.appointments (id, patient_id, doctor_id, start_time, end_time, approved_by_patient, visited) FROM stdin;
+1	1	1	2024-06-03 21:00:00+00	2024-06-05 07:00:00+00	f	f
 \.
 
 
@@ -171,7 +172,7 @@ COPY public.appointments (id, patient_id, doctor_id, start_time, end_time, appro
 -- Name: appointments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: appointments
 --
 
-SELECT pg_catalog.setval('public.appointments_id_seq', 1, false);
+SELECT pg_catalog.setval('public.appointments_id_seq', 1, true);
 
 
 --
@@ -194,8 +195,8 @@ ALTER TABLE ONLY public.appointments
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
--- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped from database version 16.3 (Debian 16.3-1.pgdg120+1)
+-- Dumped by pg_dump version 16.3 (Debian 16.3-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -317,8 +318,8 @@ ALTER TABLE ONLY public.doctors
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
--- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped from database version 16.3 (Debian 16.3-1.pgdg120+1)
+-- Dumped by pg_dump version 16.3 (Debian 16.3-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1989,7 +1990,7 @@ a248885f-d7b3-402e-8225-a26d1d156774	t	f	admin-cli	0	t	\N	\N	f	\N	f	9221edbb-59a
 088cf0d3-560a-4164-b704-9f47a63f0897	t	f	broker	0	f	\N	\N	t	\N	f	9221edbb-59a4-49c1-a953-17a986e6ecd2	openid-connect	0	f	f	${client_broker}	f	client-secret	\N	\N	\N	t	f	f	f
 17bc51b0-295d-4165-aa7f-61ecd9be7165	t	f	realm-management	0	f	\N	\N	t	\N	f	9221edbb-59a4-49c1-a953-17a986e6ecd2	openid-connect	0	f	f	${client_realm-management}	f	client-secret	\N	\N	\N	t	f	f	f
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	t	f	security-admin-console	0	t	\N	/admin/tekclinic/console/	f	\N	f	9221edbb-59a4-49c1-a953-17a986e6ecd2	openid-connect	0	f	f	${client_security-admin-console}	f	client-secret	${authAdminUrl}	\N	\N	t	f	f	f
-984ede3f-e7f6-4231-9bfa-68a726c655a5	t	t	web-app	0	t	\N		f		f	9221edbb-59a4-49c1-a953-17a986e6ecd2	openid-connect	-1	t	f		f	client-secret			\N	t	f	t	f
+984ede3f-e7f6-4231-9bfa-68a726c655a5	t	t	web-app	0	f	0ia4osZWvEigUzAmLgRownHtp5GKR9Jo		f		f	9221edbb-59a4-49c1-a953-17a986e6ecd2	openid-connect	-1	t	f		f	client-secret			\N	t	f	f	f
 \.
 
 
@@ -2015,8 +2016,6 @@ a248885f-d7b3-402e-8225-a26d1d156774	post.logout.redirect.uris	+
 17bc51b0-295d-4165-aa7f-61ecd9be7165	post.logout.redirect.uris	+
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	post.logout.redirect.uris	+
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	pkce.code.challenge.method	S256
-984ede3f-e7f6-4231-9bfa-68a726c655a5	client.secret.creation.time	1707682848
-984ede3f-e7f6-4231-9bfa-68a726c655a5	post.logout.redirect.uris	+
 984ede3f-e7f6-4231-9bfa-68a726c655a5	oauth2.device.authorization.grant.enabled	false
 984ede3f-e7f6-4231-9bfa-68a726c655a5	backchannel.logout.revoke.offline.tokens	false
 984ede3f-e7f6-4231-9bfa-68a726c655a5	use.refresh.tokens	true
@@ -2030,6 +2029,8 @@ af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	pkce.code.challenge.method	S256
 984ede3f-e7f6-4231-9bfa-68a726c655a5	token.response.type.bearer.lower-case	false
 291174d2-2dd5-486e-afd5-25223d4acded	display.on.consent.screen	false
 291174d2-2dd5-486e-afd5-25223d4acded	client.secret.creation.time	1707771834
+984ede3f-e7f6-4231-9bfa-68a726c655a5	post.logout.redirect.uris	http://tekclinic.org##http://localhost:3000
+984ede3f-e7f6-4231-9bfa-68a726c655a5	client.secret.creation.time	1707682848
 \.
 
 
@@ -3584,8 +3585,8 @@ a6fa7888-d7d4-4839-bf0f-624e7fa91276	/realms/master/account/*
 d7963a92-c19a-4ca7-a646-90f9cadd92d9	/realms/tekclinic/account/*
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	/admin/tekclinic/console/*
 291174d2-2dd5-486e-afd5-25223d4acded	
-984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org*
-984ede3f-e7f6-4231-9bfa-68a726c655a5	http://localhost*
+984ede3f-e7f6-4231-9bfa-68a726c655a5	http://localhost:3000/api/auth/callback/keycloak
+984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org/api/auth/callback/keycloak
 \.
 
 
@@ -3858,8 +3859,7 @@ COPY public.web_origins (client_id, value) FROM stdin;
 141e4dad-404a-4615-b772-9adb633ad401	+
 af9754e2-54f1-4dfc-a2a3-3092f6dd77bf	+
 291174d2-2dd5-486e-afd5-25223d4acded	
-984ede3f-e7f6-4231-9bfa-68a726c655a5	http://tekclinic.org
-984ede3f-e7f6-4231-9bfa-68a726c655a5	http://localhost:3000
+984ede3f-e7f6-4231-9bfa-68a726c655a5	
 \.
 
 
@@ -5888,8 +5888,8 @@ ALTER TABLE ONLY public.identity_provider_config
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
--- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped from database version 16.3 (Debian 16.3-1.pgdg120+1)
+-- Dumped by pg_dump version 16.3 (Debian 16.3-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -6084,8 +6084,8 @@ ALTER TABLE ONLY public.patients
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 16.2 (Debian 16.2-1.pgdg120+2)
--- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg120+2)
+-- Dumped from database version 16.3 (Debian 16.3-1.pgdg120+1)
+-- Dumped by pg_dump version 16.3 (Debian 16.3-1.pgdg120+1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;

@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   db:
     image: postgres:latest
@@ -20,7 +19,9 @@ services:
     image: keycloak/keycloak:23.0
     command: start-dev
     networks:
-      front-tier: {}
+      front-tier:
+        aliases:
+          - auth.tekclinic.org
       back-tier:
         aliases:
           - auth.tekclinic.org
@@ -39,21 +40,18 @@ services:
         condition: service_healthy
 
   web-app:
-    build: 
-      context: web-app
-      args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
-        NEXT_PUBLIC_AUTH_URL: ${NEXT_PUBLIC_AUTH_URL}
-        NEXT_PUBLIC_SYNCFUSION_LICENSE_KEY: ${NEXT_PUBLIC_SYNCFUSION_LICENSE_KEY}
+    image: ghcr.io/tekclinic/web-app:latest
+    environment:
+      KEYCLOAK_CLIENT_ID: web-app
+      KEYCLOAK_CLIENT_SECRET: 0ia4osZWvEigUzAmLgRownHtp5GKR9Jo
+      KEYCLOAK_ISSUER: http://auth.tekclinic.org:80/realms/tekclinic
+      NEXTAUTH_URL: http://tekclinic.org
+      NEXTAUTH_SECRET: Y1hGRQNUUE2mcfWWwVBet1foMGzgnI8UaP52ezQz0Xo=
     networks:
       - front-tier
 
   patients:
-    build: 
-      context: patients
-      args:
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
-        GITHUB_ACTOR: ${GITHUB_ACTOR}
+    image: ghcr.io/tekclinic/patients-ms:latest
     networks:
       - back-tier
     ports:
@@ -73,11 +71,7 @@ services:
     restart: on-failure
 
   appointments:
-    build: 
-      context: appointments
-      args:
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
-        GITHUB_ACTOR: ${GITHUB_ACTOR}
+    image: ghcr.io/tekclinic/appointments-ms:latest
     networks:
       - back-tier
     ports:
@@ -97,11 +91,7 @@ services:
     restart: on-failure
 
   doctors:
-    build: 
-      context: doctors
-      args:
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
-        GITHUB_ACTOR: ${GITHUB_ACTOR}
+    image: ghcr.io/tekclinic/doctors-ms:latest
     networks:
       - back-tier
     ports:
@@ -121,11 +111,7 @@ services:
     restart: on-failure
 
   api-gateway:
-    build: 
-      context: api-gateway
-      args:
-        GITHUB_TOKEN: ${GITHUB_TOKEN}
-        GITHUB_ACTOR: ${GITHUB_ACTOR}
+    image: ghcr.io/tekclinic/api-gateway:latest
     networks:
       - front-tier
       - back-tier
