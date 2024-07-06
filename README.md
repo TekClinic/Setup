@@ -77,9 +77,10 @@ Path to `hosts` file on Windows is `c:\Windows\System32\Drivers\etc\hosts`.
 ### 5. Run following commands
 
 ```
-docker-compose build --no-cache
-docker compose up
+docker compose down && docker compose pull && docker compose up
 ```
+
+Rerun this command each time you want to fetch the last updates.
 
 ## Available services
 
