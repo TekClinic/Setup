@@ -107,8 +107,8 @@ Documentation is implemented in several forms, all serving one or more of the ab
     ```
     This example may be a bit too detailed for a student project, but it shows the level of detail that can be provided.
 
-1. Comments: code should be self-explanatory, but sometimes it's not. In such cases, 
-   comments should be added to explain the code's purpose, especially if it's not obvious.
+1. Comments: code should be self-explanatory, but oftentimes it's not. For the common cases, 
+   comments should be added to explain the code's purpose, especially if it's not obvious/trivial.
    This usually is the case for any code with more than one logical block.
    
    Example:
