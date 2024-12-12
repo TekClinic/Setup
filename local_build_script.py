@@ -76,12 +76,13 @@ if __name__ == "__main__":
     print_service_names()
     service_names = []
     services_paths = []
-    res = input("Enter Service name to run locally: ")
-    while res != "None":
+    input_prompt = "Enter service name to run from local code (or None to stop): "
+    res = input(input_prompt)
+    while res.lower() != "none":
         service_names.append(res)
-        res_path = input(f"enter {res}'s DOCKERFILE path: ")
+        res_path = input(f"Enter {res}'s DOCKERFILE path: ")
         services_paths.append(res_path)
-        res = input("Enter Service name to run locally: ")
+        res = input(input_prompt)
     # if len(sys.argv) != 3:
     #     print("Usage: python generate_compose.py <path_to_dockerfile>")
     #     sys.exit(1)
