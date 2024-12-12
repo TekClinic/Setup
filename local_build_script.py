@@ -59,7 +59,21 @@ def generate_compose(service_names,dockerfile_paths, input_compose_path="compose
         print(f"Error during docker-compose execution: {e}")
 
 
+def get_all_service_names(input_compose_path="compose.yaml") -> set[str]:
+    with open(input_compose_path, "r") as file:
+        compose_data = yaml.safe_load(file)
+        services = compose_data.get("services", {})
+        return set(services.keys())
+
+
+def print_service_names():
+    print('Available services are:')
+    for name in sorted(get_all_service_names()):
+        print('- ' + name)
+
+
 if __name__ == "__main__":
+    print_service_names()
     service_names = []
     services_paths = []
     res = input("Enter Service name to run locally: ")
