@@ -4,6 +4,18 @@ import sys
 import os
 
 
+def run_docker_compose(
+    compose_path: str = "docker-compose.override.yaml",
+    override_path: str = "docker-compose.override.yaml",
+):
+    try:
+        subprocess.run(["docker-compose", "-f", compose_path, "-f", override_path, "build"], check=True)
+        subprocess.run(["docker-compose", "-f", compose_path, "-f", override_path, "up"], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"Error during docker-compose execution: {e}")
+
+
+# TODO: This not only generates, but also runs. Should this be changed/renamed?
 def generate_compose(service_names,dockerfile_paths, input_compose_path="compose.yaml",
                      output_compose_path="docker-compose.override.yaml"):
     
@@ -51,12 +63,7 @@ def generate_compose(service_names,dockerfile_paths, input_compose_path="compose
 
     print(f"Docker Compose file generated: {output_compose_path}")
 
-    # Run docker-compose commands
-    try:
-        subprocess.run(["docker-compose", "-f", input_compose_path, "-f", output_compose_path, "build"], check=True)
-        subprocess.run(["docker-compose", "-f", input_compose_path, "-f", output_compose_path, "up"], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"Error during docker-compose execution: {e}")
+    run_docker_compose(input_compose_path, output_compose_path)
 
 
 def get_all_service_names(input_compose_path="compose.yaml") -> set[str]:
