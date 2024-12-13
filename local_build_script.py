@@ -79,7 +79,26 @@ def print_service_names():
         print('- ' + name)
 
 
-if __name__ == "__main__":
+def is_help() -> bool:
+    return sys.argv[1] in ['help', '--help', '-h', '-help', '/?']
+
+
+help_message = """
+This script generates a docker-compose.override.yaml file to build and run local code!
+
+Usage: python local_build_script.py
+
+Options:
+    -h, --help: This help message.
+    -r, --remember: Use the same services as last time.
+"""
+
+
+def is_remember() -> bool:
+    return any(flag in sys.argv for flag in ['-r', '--remember'])
+
+
+def prompt_generate_and_run():
     print_service_names()
     service_names = []
     services_paths = []
@@ -98,3 +117,20 @@ if __name__ == "__main__":
     # dockerfile_path = sys.argv[2]
     # print(dockerfile_path)
     generate_compose(service_names, services_paths)
+
+
+def do_command():
+    if is_help():
+        print(help_message)
+    elif is_remember():
+        run_docker_compose()
+    else:
+        prompt_generate_and_run()
+
+
+def main():
+    do_command()
+
+
+if __name__ == "__main__":
+    main()
