@@ -9,10 +9,10 @@ def run_docker_compose(
     override_path: str = "docker-compose.override.yaml",
 ):
     try:
-        subprocess.run(["docker-compose", "-f", compose_path, "-f", override_path, "build"], check=True)
-        subprocess.run(["docker-compose", "-f", compose_path, "-f", override_path, "up"], check=True)
+        subprocess.run(["docker", "compose", "-f", compose_path, "-f", override_path, "build"], check=True)
+        subprocess.run(["docker", "compose", "-f", compose_path, "-f", override_path, "up"], check=True)
     except subprocess.CalledProcessError as e:
-        print(f"Error during docker-compose execution: {e}")
+        print(f"Error during docker compose execution: {e}")
     except KeyboardInterrupt:
         print("Stopped")
 
@@ -23,10 +23,10 @@ def generate_compose(service_names,dockerfile_paths, input_compose_path="compose
     
     if len(service_names) == 0:
         try:
-            subprocess.run(["docker-compose", "-f", "compose.yaml", "build"], check=True)
-            subprocess.run(["docker-compose", "-f", "compose.yaml", "up"], check=True)
+            subprocess.run(["docker", "compose", "-f", "compose.yaml", "build"], check=True)
+            subprocess.run(["docker", "compose", "-f", "compose.yaml", "up"], check=True)
         except subprocess.CalledProcessError as e:
-            print(f"Error during docker-compose execution: {e}")
+            print(f"Error during docker compose execution: {e}")
 
     # Validate Dockerfile path
     for dockerfile_path in dockerfile_paths:
@@ -82,7 +82,7 @@ def print_service_names():
 
 
 def is_help() -> bool:
-    return sys.argv[1] in ['help', '--help', '-h', '-help', '/?']
+    return len(sys.argv) >= 2 and sys.argv[1] in ['help', '--help', '-h', '-help', '/?']
 
 
 help_message = """
