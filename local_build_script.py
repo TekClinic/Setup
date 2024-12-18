@@ -13,6 +13,8 @@ def run_docker_compose(
         subprocess.run(["docker-compose", "-f", compose_path, "-f", override_path, "up"], check=True)
     except subprocess.CalledProcessError as e:
         print(f"Error during docker-compose execution: {e}")
+    except KeyboardInterrupt:
+        print("Stopped")
 
 
 # TODO: This not only generates, but also runs. Should this be changed/renamed?
